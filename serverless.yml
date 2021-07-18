@@ -4,3 +4,27 @@ service:
 plugins:
   - serverless-offline
   - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+
+functions:
+  createTodo:
+    handler: src/functions/createTodo.handle
+    events:
+      - http:
+          path: /todos
+          method: POST
+          cors: true
+  getTodos:
+    handler: src/functions/getTodos.handle
+    events:
+      - http:
+          path: /todos
+          method: GET
+          cors: true
