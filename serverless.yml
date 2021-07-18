@@ -1,5 +1,4 @@
-service:
-  name: todos
+service: todos
 
 plugins:
   - serverless-offline
@@ -23,20 +22,21 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: us-east-2
+  lambdaHashingVersion: 20201221
 
 functions:
   createTodo:
     handler: src/functions/createTodo.handle
     events:
       - http:
-          path: /todos
+          path: /todos/{userid}
           method: POST
           cors: true
   getTodos:
     handler: src/functions/getTodos.handle
     events:
       - http:
-          path: /todos
+          path: /todos/{userid}
           method: GET
           cors: true
 
