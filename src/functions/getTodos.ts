@@ -7,21 +7,18 @@ export const handle = async (event: APIGatewayEvent) => {
 
   const response = await document.query({
     TableName: "user_todo",
-    KeyConditionExpression: "user_id = :user_id",
+    KeyConditionExpression: "user_id = :id",
     ExpressionAttributeValues: {
-      ":user_id": user_id
+      ":id": user_id
     }
   }).promise();
 
   const user_todos = response.Items;
 
-  if (user_todos) {
+  if (user_todos.length > 0) {
     return {
       statusCode: 200,
-      body: JSON.stringify(user_todos),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      body: JSON.stringify({ user_todos, }),
     };
   }
 
@@ -30,9 +27,6 @@ export const handle = async (event: APIGatewayEvent) => {
     body: JSON.stringify({
       message: "No todo found for this user."
     }),
-    headers: {
-      "Content-Type": "application/json",
-    },
   };
 
 };

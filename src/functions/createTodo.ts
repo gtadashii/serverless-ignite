@@ -14,7 +14,7 @@ export const handle = async (event: APIGatewayEvent) => {
 
   const todo = {
     id: uuidV4(),
-    user_id,
+    user_id: user_id,
     title,
     done: false,
     deadline: new Date(deadline).toUTCString(),

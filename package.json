@@ -4,7 +4,11 @@
   "description": "Serverless aws-nodejs-typescript template",
   "scripts": {
     "dev": "serverless offline",
-    "dynamo:start": "serverless dynamodb start"
+    "dynamo:start": "serverless dynamodb start",
+    "deploy": "serverless deploy -v"
+  },
+  "engines": {
+    "node": ">=14.15.0"
   },
   "dependencies": {
     "@middy/core": "^1.5.2",
