@@ -1,24 +1,25 @@
 import { document } from "../utils/dynamodbClient";
 import { v4 as uuidV4 } from "uuid";
-import { APIGatewayEvent } from "aws-lambda";
+import { APIGatewayProxyHandler } from "aws-lambda";
 
 interface ICreateTODO {
   title: string;
   deadline: string;
 }
 
-export const handle = async (event: APIGatewayEvent) => {
-
-  const { user_id } = event.pathParameters;
+export const handle: APIGatewayProxyHandler = async (event) => {
+  const { userid } = event.pathParameters;
   const { title, deadline } = JSON.parse(event.body) as ICreateTODO;
 
   const todo = {
     id: uuidV4(),
-    user_id: user_id,
+    user_id: userid,
     title,
     done: false,
     deadline: new Date(deadline).toUTCString(),
   }
+
+  console.log(todo);
 
   await document.put({
     TableName: "user_todo",
