@@ -1,0 +1,6 @@
+service:
+  name: todos
+
+plugins:
+  - serverless-offline
+  - serverless-webpack
